@@ -52,6 +52,17 @@ buildTests({
       inputs: [buildLinkedList([2, 4, 3]), buildLinkedList([5, 6, 4])],
       output: buildLinkedList([7, 0, 8]),
     },
+    {
+      inputs: [buildLinkedList([0]), buildLinkedList([0])],
+      output: buildLinkedList([0]),
+    },
+    {
+      inputs: [
+        buildLinkedList([9, 9, 9, 9, 9, 9, 9]),
+        buildLinkedList([9, 9, 9, 9]),
+      ],
+      output: buildLinkedList([8, 9, 9, 9, 0, 0, 0, 1]),
+    },
   ],
   serializeResult: (listNode) => JSON.stringify(listNode),
 });
