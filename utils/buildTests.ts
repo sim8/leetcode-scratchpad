@@ -1,14 +1,24 @@
 import { AlgorithmType, TestCase } from '../types';
 
+type Options<Algorithm extends AlgorithmType> = {
+  serializeResult?: (result: ReturnType<Algorithm>) => any;
+};
+
 export function buildTests<Algorithm extends AlgorithmType>(
-  name: string,
   func: Algorithm,
-  testCases: TestCase<Algorithm>[]
+  testCases: TestCase<Algorithm>[],
+  { serializeResult }: Options<Algorithm> = {}
 ) {
   testCases.forEach((testCase) => {
-    test(`Algorithm: ${name} | test case: ${testCase.inputs}`, () => {
+    test(`Test case: ${testCase.inputs}`, () => {
       const result = func(...testCase.inputs);
-      expect(result).toEqual(testCase.output);
+      if (serializeResult) {
+        expect(serializeResult(result)).toEqual(
+          serializeResult(testCase.output)
+        );
+      } else {
+        expect(result).toEqual(testCase.output);
+      }
     });
   });
 }

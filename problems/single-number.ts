@@ -14,7 +14,7 @@ function singleNumber(nums: number[]): number {
   return parseInt(Object.keys(singleNumbersSoFar)[0], 10);
 }
 
-buildTests('singleNumber', singleNumber, [
+buildTests(singleNumber, [
   {
     inputs: [[2, 2, 1]],
     output: 1,
