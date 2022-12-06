@@ -1,0 +1,23 @@
+{
+  "name": "leetcode-scratchpad",
+  "version": "1.0.0",
+  "description": "A dev + testing environment for leetcode exercises",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo TODO"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sim8/leetcode-scratchpad.git"
+  },
+  "keywords": [
+    "leetcode",
+    "algorithms"
+  ],
+  "author": "Simeon Lees",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sim8/leetcode-scratchpad/issues"
+  },
+  "homepage": "https://github.com/sim8/leetcode-scratchpad#readme"
+}
