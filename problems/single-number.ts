@@ -3,7 +3,7 @@ import { buildTests } from '../utils/buildTests';
 // https://leetcode.com/problems/single-number/
 
 function singleNumber(nums: number[]): number {
-  const singleNumbersSoFar = {};
+  const singleNumbersSoFar: Record<number, boolean> = {};
   nums.forEach((num) => {
     if (num in singleNumbersSoFar) {
       delete singleNumbersSoFar[num];
