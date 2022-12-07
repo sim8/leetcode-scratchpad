@@ -7,35 +7,39 @@ type ListNode = {
   next: ListNode | null;
 };
 
-function listToNumber(listNode: ListNode): number {
-  let currentNode: ListNode | null = listNode;
-  let radix = 1;
-  let acc = 0;
+function addTwoNumbers(l1: ListNode, l2: ListNode): ListNode {
+  let l1CurrentNode: ListNode | null = l1;
+  let l2CurrentNode: ListNode | null = l2;
+  let head;
+  let resultPrevNode;
+  let carryOver = 0;
 
-  while (currentNode) {
-    acc += currentNode.val * radix;
+  while (l1CurrentNode || l2CurrentNode || carryOver) {
+    // Todo - can just stitch on remainder if either empty
+    const total =
+      (l1CurrentNode ? l1CurrentNode.val : 0) +
+      (l2CurrentNode ? l2CurrentNode.val : 0) +
+      carryOver;
 
-    currentNode = currentNode.next;
-    radix *= 10;
+    const node: ListNode = {
+      val: total % 10,
+      next: null,
+    };
+
+    if (!resultPrevNode) {
+      resultPrevNode = node;
+      head = node;
+    } else {
+      resultPrevNode.next = node;
+      resultPrevNode = node;
+    }
+
+    carryOver = total >= 10 ? 1 : 0;
+    l1CurrentNode = l1CurrentNode && l1CurrentNode.next;
+    l2CurrentNode = l2CurrentNode && l2CurrentNode.next;
   }
 
-  return acc;
-}
-
-function addTwoNumbers(l1: ListNode, l2: ListNode): ListNode {
-  const num1 = listToNumber(l1);
-  const num2 = listToNumber(l2);
-
-  const result = num1 + num2;
-
-  const valueStrs = `${result}`.split('');
-
-  const finalResult = valueStrs.reduce<ListNode>(
-    (acc, current) => ({ val: parseInt(current, 10), next: acc }),
-    null as any
-  );
-
-  return finalResult;
+  return head as ListNode;
 }
 
 function buildLinkedList(values: number[]): ListNode {
@@ -62,6 +66,19 @@ buildTests({
         buildLinkedList([9, 9, 9, 9]),
       ],
       output: buildLinkedList([8, 9, 9, 9, 0, 0, 0, 1]),
+    },
+    {
+      inputs: [
+        buildLinkedList([
+          1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 1,
+        ]),
+        buildLinkedList([5, 6, 4]),
+      ],
+      output: buildLinkedList([
+        6, 6, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 1,
+      ]),
     },
   ],
   serializeResult: (listNode) => JSON.stringify(listNode),
