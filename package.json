@@ -4,7 +4,8 @@
   "description": "A dev + testing environment for leetcode exercises",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "debug": "python -mwebbrowser \"chrome://inspect\" && node --inspect-brk node_modules/.bin/jest --runInBand"
   },
   "repository": {
     "type": "git",
