@@ -4,3 +4,8 @@ export type TestCase<Algorithm extends AlgorithmType> = {
   inputs: Parameters<Algorithm>;
   output: ReturnType<Algorithm>;
 };
+
+export type ListNode = {
+  val: number;
+  next: ListNode | null;
+};

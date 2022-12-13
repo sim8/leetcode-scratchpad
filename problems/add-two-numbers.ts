@@ -1,11 +1,8 @@
+import { ListNode } from '../types';
 import { buildTests } from '../utils/buildTests';
+import { buildLinkedList } from '../utils/data';
 
 // https://leetcode.com/problems/add-two-numbers/
-
-type ListNode = {
-  val: number;
-  next: ListNode | null;
-};
 
 function addTwoNumbers(l1: ListNode, l2: ListNode): ListNode {
   let l1CurrentNode: ListNode | null = l1;
@@ -40,13 +37,6 @@ function addTwoNumbers(l1: ListNode, l2: ListNode): ListNode {
   }
 
   return head as ListNode;
-}
-
-function buildLinkedList(values: number[]): ListNode {
-  return values.reduceRight<ListNode>(
-    (acc, current) => ({ val: current, next: acc }),
-    null as any
-  );
 }
 
 buildTests({
