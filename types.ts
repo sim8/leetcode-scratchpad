@@ -9,3 +9,8 @@ export type ListNode = {
   val: number;
   next: ListNode | null;
 };
+
+export type TreeNode = {
+  val: number;
+  children: (TreeNode | null)[];
+};
