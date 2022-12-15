@@ -12,5 +12,5 @@ export type ListNode = {
 
 export type TreeNode = {
   val: number;
-  children: TreeNode[];
+  children: (TreeNode | null)[];
 };
