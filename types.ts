@@ -10,7 +10,8 @@ export type ListNode = {
   next: ListNode | null;
 };
 
-export type TreeNode = {
+export type BinaryTreeNode = {
   val: number;
-  children: (TreeNode | null)[];
+  left: BinaryTreeNode | null;
+  right: BinaryTreeNode | null;
 };

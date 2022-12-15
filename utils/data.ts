@@ -1,4 +1,4 @@
-import { ListNode, TreeNode } from '../types';
+import { ListNode, BinaryTreeNode } from '../types';
 
 export function buildLinkedList(values: number[]): ListNode {
   return values.reduceRight<ListNode>(
@@ -7,23 +7,32 @@ export function buildLinkedList(values: number[]): ListNode {
   );
 }
 
-export function buildBinaryTree(values: (number | null)[]): TreeNode | null {
+export function buildBinaryTree(
+  values: (number | null)[]
+): BinaryTreeNode | null {
   if (values[0] === null) {
     return null;
   }
-  function buildLevel(parentNodes: TreeNode[], values: (number | null)[]) {
-    const currentLevelNodes: TreeNode[] = [];
+  function buildLevel(
+    parentNodes: BinaryTreeNode[],
+    values: (number | null)[]
+  ) {
+    const currentLevelNodes: BinaryTreeNode[] = [];
     const valuesForThisLevel = values.slice(0, parentNodes.length * 2);
 
     valuesForThisLevel.forEach((value, i) => {
       const parentIndex = Math.floor(i / 2);
-      const childIndex = i % 2;
       if (value !== null) {
         const node = {
           val: value,
-          children: [null, null],
+          left: null,
+          right: null,
         };
-        parentNodes[parentIndex].children[childIndex] = node;
+        if (i % 2) {
+          parentNodes[parentIndex].right = node;
+        } else {
+          parentNodes[parentIndex].left = node;
+        }
         currentLevelNodes.push(node);
       }
     });
@@ -34,9 +43,10 @@ export function buildBinaryTree(values: (number | null)[]): TreeNode | null {
       buildLevel(currentLevelNodes, valuesForNextLevel);
     }
   }
-  const root: TreeNode = {
+  const root: BinaryTreeNode = {
     val: values[0],
-    children: [null, null],
+    left: null,
+    right: null,
   };
   buildLevel([root], values.slice(1));
   return root;
@@ -45,38 +55,33 @@ export function buildBinaryTree(values: (number | null)[]): TreeNode | null {
 test('buildBinaryTree', () => {
   expect(buildBinaryTree([1])).toEqual({
     val: 1,
-    children: [null, null],
+    left: null,
+    right: null,
   });
   expect(buildBinaryTree([null])).toEqual(null);
   expect(buildBinaryTree([1, 2, 3, null, 4, null, null, 5, null, 6])).toEqual({
     val: 1,
-    children: [
-      {
-        val: 2,
-        children: [
-          null,
-          {
-            val: 4,
-            children: [
-              {
-                val: 5,
-                children: [
-                  {
-                    val: 6,
-                    children: [null, null],
-                  },
-                  null,
-                ],
-              },
-              null,
-            ],
+    left: {
+      val: 2,
+      left: null,
+      right: {
+        val: 4,
+        left: {
+          val: 5,
+          left: {
+            val: 6,
+            left: null,
+            right: null,
           },
-        ],
+          right: null,
+        },
+        right: null,
       },
-      {
-        val: 3,
-        children: [null, null],
-      },
-    ],
+    },
+    right: {
+      val: 3,
+      left: null,
+      right: null,
+    },
   });
 });
