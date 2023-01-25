@@ -2,6 +2,9 @@
 module.exports = async () => {
   return {
     verbose: true,
-    testMatch: ['**/problems/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+    testMatch: [
+      '**/(problems|algorithms)/**/*.[jt]s?(x)',
+      '**/?(*.)+(spec|test).[jt]s?(x)',
+    ],
   };
 };
