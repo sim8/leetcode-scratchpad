@@ -12,9 +12,13 @@ export default function binarySearch<T>(
   if (arr[middle] === val) {
     return middle;
   } else if (arr[middle] > val) {
-    return binarySearch(arr, val, startIndex, middle);
+    return middle > startIndex
+      ? binarySearch(arr, val, startIndex, middle)
+      : -1;
   } else {
-    return binarySearch(arr, val, middle + 1, endIndex);
+    return endIndex > middle + 1
+      ? binarySearch(arr, val, middle + 1, endIndex)
+      : -1;
   }
 }
 
@@ -36,6 +40,22 @@ buildTests({
     {
       inputs: [[1, 2, 3, 4], 2],
       output: 1,
+    },
+    {
+      inputs: [[1, 2, 3, 4, 6, 8], 6],
+      output: 4,
+    },
+    {
+      inputs: [[1, 2, 3], 4],
+      output: -1,
+    },
+    {
+      inputs: [[1, 2, 3], 0],
+      output: -1,
+    },
+    {
+      inputs: [[1, 2, 3], 1.5],
+      output: -1,
     },
   ],
 });
