@@ -48,6 +48,15 @@ function existsFromSquare(
 }
 
 function exist(board: string[][], word: string): boolean {
+  let unusedLetters = board.flat();
+  for (let i = 0; i < word.length; i++) {
+    const index = unusedLetters.indexOf(word[i]);
+    if (index === -1) {
+      return false;
+    }
+    unusedLetters.splice(index, 1);
+  }
+
   for (let y = 0; y < board.length; y++) {
     for (let x = 0; x < board[y].length; x++) {
       const exists = existsFromSquare(board, [y, x], word, []);
